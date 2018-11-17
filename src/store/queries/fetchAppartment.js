@@ -7,6 +7,10 @@ export default gql`
       owner {
         _id
         email
+        profile {
+          firstName
+          lastName
+        }
       }
       title
       location {

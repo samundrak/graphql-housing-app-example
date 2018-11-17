@@ -3,6 +3,7 @@ import { fetchApartment } from '../store/actions/apartmentActions';
 import { connect } from 'react-redux';
 import ApartmentAmentityView from './ApartmentAmentityView';
 import { loadImageFromCDN } from '../helpers';
+import OwnerCard from '../components/OwnerCard';
 
 export class ApartmentView extends React.Component {
   componentWillMount() {
@@ -56,11 +57,11 @@ export class ApartmentView extends React.Component {
                       </div>
                       <div className="f9YmKwMaSOdtYnk_Qz-iT">
                         <div className="dVjtBg_ihJ63cZB8GwE0g text-truncate">
-                          sss
                           <ApartmentAmentityView
                             amentities={apartment.amentities}
                             limit={20}
                           />
+                          <OwnerCard owner={apartment.owner} />
                         </div>
                       </div>
                     </div>
