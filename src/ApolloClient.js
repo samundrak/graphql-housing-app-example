@@ -1,7 +1,11 @@
-import ApolloClient from "apollo-boost/lib/index";
+import ApolloClient, { InMemoryCache } from 'apollo-boost/lib/index';
 
+const cache = new InMemoryCache();
+
+console.log(process.env.REACT_APP_GRAPHQL_ENDPOINT);
 const client = new ApolloClient({
-    uri: 'http://localhost:5000/graphql'
+  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
+  cache,
 });
 
 export default client;

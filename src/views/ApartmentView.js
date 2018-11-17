@@ -1,7 +1,8 @@
 import React from 'react';
-import { fetchApartment } from '../actions/apartmentActions';
+import { fetchApartment } from '../store/actions/apartmentActions';
 import { connect } from 'react-redux';
 import ApartmentAmentityView from './ApartmentAmentityView';
+import { loadImageFromCDN } from '../helpers';
 
 export class ApartmentView extends React.Component {
   componentWillMount() {
@@ -15,10 +16,9 @@ export class ApartmentView extends React.Component {
   render() {
     const { apartment } = this.props;
     if (!Object.keys(apartment).length) {
-      return <div>Loading...</div>;
+      return <div className="center-element">Loading...</div>;
     }
-    let image =
-      'http://localhost:5000/images/apartments/' + apartment.images[0];
+    let image = loadImageFromCDN(`apartments/${apartment.images[0]}`);
     return (
       <div className="container-fl clearfix">
         <div className="col-12">
@@ -56,9 +56,10 @@ export class ApartmentView extends React.Component {
                       </div>
                       <div className="f9YmKwMaSOdtYnk_Qz-iT">
                         <div className="dVjtBg_ihJ63cZB8GwE0g text-truncate">
+                          sss
                           <ApartmentAmentityView
-                            apartment={apartment}
-                            limit="20"
+                            amentities={apartment.amentities}
+                            limit={20}
                           />
                         </div>
                       </div>

@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
-export default class ApartmentAmentityView extends React.Component {
-  render() {
-    let { apartment, limit = 3 } = this.props;
-    let amentities = [];
-    apartment.amenities.map((item, index) => {
-      if (index < limit) {
-        amentities.push(
-          <span className="_1h9l4w0vvX6d56ZnJ3NLod">
-            <i />
-            <span>{item}</span>
-          </span>
-        );
-      }
-    });
-    return amentities;
-  }
-}
+const ApartmentAmentityView = ({ limit, amentities }) => {
+  let localAmentities = [];
+  amentities.map((item, index) => {
+    if (index < limit) {
+      localAmentities.push(
+        <span className="_1h9l4w0vvX6d56ZnJ3NLod">
+          <i />
+          <span>{item}</span>
+        </span>
+      );
+    }
+  });
+  return <Fragment>{localAmentities}</Fragment>;
+};
+ApartmentAmentityView.defaultProps = {
+  limit: 3,
+  amentities: [],
+};
+ApartmentAmentityView.propTypes = {
+  limit: PropTypes.number,
+  amentities: PropTypes.array,
+};
+export default ApartmentAmentityView;

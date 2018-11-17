@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchApartmentsList } from './../actions/apartmentsListActions';
+import { fetchApartmentsList } from '../store/actions/apartmentsListActions';
 import ApartmentTileView from './ApartmentTileView';
 
 class HomeView extends React.Component {

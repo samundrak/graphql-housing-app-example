@@ -1,15 +1,15 @@
-import { FETCH_APARTMENTS_LIST } from './../actions/types';
+import { FETCH_APARTMENT } from '../actions/types';
 
 const initialState = {
-  apartments: {},
+  apartment: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_APARTMENTS_LIST:
+    case FETCH_APARTMENT:
       return {
         ...state,
-        apartments: action.payload.apartments,
+        apartment: action.payload.apartment,
       };
     default:
       return state;
