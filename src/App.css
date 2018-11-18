@@ -76,3 +76,8 @@
 #fof p:first-child {
   margin-top: 0;
 }
+.center-element {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}

@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  {
-    apartments(active: true) {
+  query($active: Boolean = true, $location: String) {
+    apartments(active: $active, location: $location) {
       items {
         _id
         owner {

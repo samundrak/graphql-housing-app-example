@@ -1,6 +1,6 @@
 import { FETCH_APARTMENT } from './types';
 import client from '../../ApolloClient';
-import fetchApartmentQuery from '../queries/fetchAppartment';
+import fetchApartmentQuery from '../queries/fetchApartment';
 
 export const fetchApartment = (_id) => (dispatch) => {
   client

@@ -1,7 +1,7 @@
 import React from 'react';
 import { fetchApartment } from '../store/actions/apartmentActions';
 import { connect } from 'react-redux';
-import ApartmentAmentityView from './ApartmentAmentityView';
+import ApartmentAmentityView from '../components/ApartmentAmentityView';
 import { loadImageFromCDN } from '../helpers';
 import OwnerCard from '../components/OwnerCard';
 

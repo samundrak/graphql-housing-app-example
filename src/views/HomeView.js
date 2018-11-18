@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchApartmentsList } from '../store/actions/apartmentsListActions';
-import ApartmentTileView from './ApartmentTileView';
+import ApartmentTileView from '../components/ApartmentTileView';
 
 class HomeView extends React.Component {
   componentWillMount() {
