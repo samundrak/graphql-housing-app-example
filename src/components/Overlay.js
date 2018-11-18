@@ -5,7 +5,7 @@ const OverlayWrapper = styled.div`
   width: 100vw;
   background-color: black;
   height: 100vw;
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
   opacity: 0.5;

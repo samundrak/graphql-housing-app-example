@@ -17,7 +17,7 @@ const AppLayout = ({ children }) => {
               alt="Homelike logo"
             />
           </Link>
-          <ul style={{ float: 'right' }}>
+          <ul style={{ float: 'right' }} className="navbar-items">
             <StyledMenuItem>
               <Link to="/locations">Locations</Link>
             </StyledMenuItem>

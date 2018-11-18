@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import renderIf from 'render-if';
 import styled from 'styled-components';
 import Button from './Button';
 import Overlay from './Overlay';
@@ -16,19 +17,27 @@ const Footer = styled.div`
   background-color: #f1f1f1;
   padding: 10px;
 `;
-const Popup = ({ children, onCancel, onApply }) => {
+const Popup = ({
+  children,
+  onCancel = () => null,
+  onApply = () => null,
+  style = {},
+  enableFooter = true,
+}) => {
   return (
     <div>
       <Overlay onClick={onCancel} />
-      <Container>
+      <Container style={style}>
         <Fragment>
           {children}
-          <Footer>
-            <Button type="simple" onClick={onCancel}>
-              Cancel
-            </Button>
-            <Button onClick={onApply}>Apply</Button>
-          </Footer>
+          {renderIf(enableFooter)(
+            <Footer>
+              <Button type="simple" onClick={onCancel}>
+                Cancel
+              </Button>
+              <Button onClick={onApply}>Apply</Button>
+            </Footer>
+          )}
         </Fragment>
       </Container>
     </div>

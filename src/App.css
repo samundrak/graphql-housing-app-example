@@ -81,3 +81,10 @@
   width: 50%;
   padding: 10px;
 }
+
+.navbar-items li a:hover {
+  border-bottom-style: solid;
+}
+.navbar-items li a {
+  color: white;
+}

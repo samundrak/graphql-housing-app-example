@@ -1,10 +1,12 @@
+import { connect } from 'react-redux';
 import React from 'react';
-import renderIf from 'render-if';
+import qs from 'qs';
+import { fetchLocationsList } from '../store/actions/locationsListActions';
 import autobind from 'auto-bind';
 import styled from 'styled-components';
 import SearchBox from '../components/SearchBox';
-import Popup from '../components/Popup';
-import RangeInput from '../components/RangeInput';
+import RangeFilter from '../containers/filters/RangeFilter';
+import CheckFilter from '../containers/filters/CheckFilter';
 
 const FilterList = styled.li`
   display: inline-block;
@@ -17,7 +19,27 @@ class SearchView extends React.Component {
     autobind(this);
     this.state = {
       searchText: '',
-      defaultAmenities: [
+      filter: {
+        size: {
+          value: { min: 0, max: 100 },
+          defaultValue: { min: 0, max: 100 },
+        },
+        price: {
+          value: { min: 0, max: 100 },
+          defaultValue: { min: 0, max: 100 },
+        },
+        amenities: {
+          value: [],
+          defaultValue: [],
+        },
+        services: {
+          value: [],
+          defaultValue: [],
+        },
+      },
+    };
+    this.defaultOptions = {
+      amenities: [
         'television',
         'elevator',
         'fridge',
@@ -25,26 +47,58 @@ class SearchView extends React.Component {
         'cooker',
         'microwave',
       ],
-      activeFilter: '',
+      services: ['concierge', 'cleaning', 'fullFridge', 'laundry'],
     };
   }
+  componentDidMount() {
+    if (!this.props.locations.length) {
+      this.props.fetchLocationsList();
+    }
+  }
+  submitSearchRequest() {}
   handleSearchSubmit(event) {
-    event.preventDefault();
+    if (event) event.preventDefault();
+    this.submitSearchRequest();
   }
-  handleOnSearchTextChange(event) {
-    this.setState({
-      searchText: event.target.value,
-    });
+  handleOnSearchTextChange(event, cb) {
+    this.setState(
+      {
+        searchText: event.target.value,
+      },
+      cb
+    );
   }
-  handleFilterClick(filter) {
-    return () => {
-      this.setState({
-        activeFilter: filter,
-      });
+  submitSearchRequest() {
+    const query = {
+      searchText: this.state.searchText,
+      filter: this.state.filter,
     };
+    this.props.history.replace({
+      pathname: '/search',
+      search: '?' + qs.stringify(query),
+    });
+    alert(
+      `Will request to graphql query endpoint once ready ${JSON.stringify(
+        query
+      )}`
+    );
+    console.log(query);
   }
   handleApplyFilter(filter) {
-    return () => {};
+    return (value, cb = () => null) => {
+      this.setState(
+        {
+          filter: {
+            ...this.state.filter,
+            [filter]: value,
+          },
+        },
+        () => {
+          cb();
+          this.submitSearchRequest();
+        }
+      );
+    };
   }
   handleCancelFilter(filter) {
     return () => {
@@ -53,54 +107,55 @@ class SearchView extends React.Component {
       });
     };
   }
+
   render() {
-    const { activeFilter } = this.state;
+    const { activeFilter, filter } = this.state;
     return (
       <div className="center-element">
         <SearchBox
+          suggestions={this.props.locations.items}
           onSubmit={this.handleSearchSubmit}
           onSearchTextChange={this.handleOnSearchTextChange}
           searchText={this.state.searchText}
         />
-        <ul>
+        <ul style={{ position: 'absolute', marginTop: '50px' }}>
           <FilterList>
             <b>Filter:</b>
           </FilterList>
           <FilterList>
-            <div onClick={this.handleFilterClick('size')}>Size</div>
-            {renderIf(activeFilter === 'size')(
-              <Popup
-                onApply={this.handleApplyFilter('size')}
-                onCancel={this.handleCancelFilter('size')}
-              >
-                <RangeInput />
-              </Popup>
-            )}
+            <RangeFilter
+              value={this.state.filter.size}
+              onApply={this.handleApplyFilter('size')}
+              label="Size"
+              sign="m²"
+            />
           </FilterList>
           <FilterList>
-            <div onClick={this.handleFilterClick('price')}>Price</div>
-            {renderIf(activeFilter === 'price')(
-              <Popup
-                onApply={this.handleApplyFilter('price')}
-                onCancel={this.handleCancelFilter('price')}
-              >
-                <RangeInput />
-              </Popup>
-            )}
+            <RangeFilter
+              value={this.state.filter.price}
+              onApply={this.handleApplyFilter('price')}
+              label="Price"
+              sign="€"
+            />
           </FilterList>
           <FilterList>
-            <div onClick={this.handleFilterClick('amenities')}>Amenities</div>
-            {renderIf(activeFilter === 'amenities')(
-              <Popup
-                onApply={this.handleApplyFilter('amenities')}
-                onCancel={this.handleCancelFilter('amenities')}
-              >
-                <RangeInput />
-              </Popup>
-            )}
+            <CheckFilter
+              value={this.state.filter.amenities}
+              onApply={this.handleApplyFilter('amenities')}
+              label="Amenities"
+              items={this.defaultOptions.amenities}
+            />
           </FilterList>
           <FilterList>
-            <div onClick={this.handleFilterClick('details')}>Details</div>
+            <CheckFilter
+              value={this.state.filter.services}
+              onApply={this.handleApplyFilter('services')}
+              label="Services"
+              items={this.defaultOptions.services}
+            />
+          </FilterList>
+          {/* <FilterList>
+            <div>Details</div>
             {renderIf(activeFilter === 'details')(
               <Popup
                 onApply={this.handleApplyFilter('details')}
@@ -109,22 +164,18 @@ class SearchView extends React.Component {
                 <RangeInput />
               </Popup>
             )}
-          </FilterList>
-          <FilterList>
-            <div onClick={this.handleFilterClick('services')}>services</div>
-            {renderIf(activeFilter === 'services')(
-              <Popup
-                onApply={this.handleApplyFilter('services')}
-                onCancel={this.handleCancelFilter('services')}
-              >
-                <RangeInput />
-              </Popup>
-            )}
-          </FilterList>
+          </FilterList>*/}
         </ul>
       </div>
     );
   }
 }
 
-export default SearchView;
+const mapStateToProps = (state) => ({
+  locations: state.locationList.locations,
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchLocationsList }
+)(SearchView);
