@@ -7,43 +7,39 @@ import client from './ApolloClient';
 import configureStore from './store/configureStore';
 import HomeView from './views/HomeView';
 import PAGE404 from './views/404';
-import AppartmentView from './views/ApartmentView';
-import LocationsView from './views/LocationsView';
-import SearchView from './views/SearchView';
 import AppLayout from './components/AppLayout';
-
-// import Loading from './components/Loading';
 
 const Loading = () => <div className="center-element">Loading...</div>;
 
-// const AppartmentView = Loadable({
-//   loader: () => import('./views/AppartmentView'),
-//   loading: Loading,
-// });
+const ApartmentView = Loadable({
+  loader: () => import('./views/ApartmentView'),
+  loading: Loading,
+});
+const LocationsView = Loadable({
+  loader: () => import('./views/LocationsView'),
+  loading: Loading,
+});
+const SearchView = Loadable({
+  loader: () => import('./views/SearchView'),
+  loading: Loading,
+});
 const store = configureStore();
-class App extends Component {
-  render() {
-    return (
-      <ApolloProvider client={client}>
-        <Provider store={store}>
-          <Router>
-            <AppLayout>
-              <Switch>
-                <Route exact path="/" component={HomeView} />
-                <Route
-                  path="/apartments/:apartmentId"
-                  component={AppartmentView}
-                />
-                <Route path="/locations" component={LocationsView} />
-                <Route path="/search" component={SearchView} />
-                <Route component={PAGE404} />
-              </Switch>
-            </AppLayout>
-          </Router>
-        </Provider>
-      </ApolloProvider>
-    );
-  }
-}
+const App = () => (
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <Router>
+        <AppLayout>
+          <Switch>
+            <Route exact path="/" component={HomeView} />
+            <Route path="/apartments/:apartmentId" component={ApartmentView} />
+            <Route path="/locations" component={LocationsView} />
+            <Route path="/search" component={SearchView} />
+            <Route component={PAGE404} />
+          </Switch>
+        </AppLayout>
+      </Router>
+    </Provider>
+  </ApolloProvider>
+);
 
 export default App;

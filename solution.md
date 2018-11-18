@@ -1,3 +1,5 @@
+#### Please copy file `.env.example` to `.env` before running app
+
 # Improvements and Refactor
 
 - Added library `react-loadable` for lazy loading of routes which were previously bundled in single file
