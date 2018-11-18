@@ -33,7 +33,6 @@ class LocationsView extends React.Component {
   handleOnLocationClick(location) {
     return () => {
       this.props.fetchApartmentByLocation(location._id);
-      console.log(location);
       this.setState({
         selectedLocation: {
           _id: location._id,

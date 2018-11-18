@@ -54,15 +54,7 @@ export class ApartmentView extends React.Component {
                       </div>
                       <div className="_17om8IEGFeu2W2TBOJ6xQs Lsdn2hC-tehVod76x4HzK text-truncate">
                         <span>{apartment.size} m²</span>
-                      </div>
-                      <div className="f9YmKwMaSOdtYnk_Qz-iT">
-                        <div className="dVjtBg_ihJ63cZB8GwE0g text-truncate">
-                          <ApartmentAmentityView
-                            amentities={apartment.amentities}
-                            limit={20}
-                          />
-                          <OwnerCard owner={apartment.owner} />
-                        </div>
+                        <OwnerCard owner={apartment.owner} />
                       </div>
                     </div>
                   </div>

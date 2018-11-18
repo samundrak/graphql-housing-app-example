@@ -3,14 +3,16 @@
 ## Background information
 
 ### installation & run
+
 1. start the server in the `../server` folder
 1. start the client:
-    - npm i
-    - npm start
+   - npm i
+   - npm start
 
 ## What to do
+
 1. Invest some time to refactor the current code and make it better
-    - please also tell us what you did
+   - please also tell us what you did
 1. Add webpack
 1. Add information about owner to apartment view page
 1. Add new page "Locations", show the apartments filtered by location

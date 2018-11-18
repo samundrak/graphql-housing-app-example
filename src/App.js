@@ -9,6 +9,7 @@ import HomeView from './views/HomeView';
 import PAGE404 from './views/404';
 import AppartmentView from './views/ApartmentView';
 import LocationsView from './views/LocationsView';
+import SearchView from './views/SearchView';
 import AppLayout from './components/AppLayout';
 
 // import Loading from './components/Loading';
@@ -34,6 +35,7 @@ class App extends Component {
                   component={AppartmentView}
                 />
                 <Route path="/locations" component={LocationsView} />
+                <Route path="/search" component={SearchView} />
                 <Route component={PAGE404} />
               </Switch>
             </AppLayout>

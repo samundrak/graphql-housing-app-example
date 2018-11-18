@@ -10,8 +10,9 @@ const OwnerCard = ({ owner }) => {
   } = owner;
   return (
     <Card>
+      <b>Landlord Details: </b>
       <div>
-        Owner: {firstName} {lastName}
+        Full name: {firstName} {lastName}
       </div>
       <div>Contact: {email}</div>
     </Card>

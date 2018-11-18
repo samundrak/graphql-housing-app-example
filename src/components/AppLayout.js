@@ -22,7 +22,7 @@ const AppLayout = ({ children }) => {
               <Link to="/locations">Locations</Link>
             </StyledMenuItem>
             <StyledMenuItem>
-              <Link to="/locations">Search</Link>
+              <Link to="/search">Search</Link>
             </StyledMenuItem>
           </ul>
         </div>
