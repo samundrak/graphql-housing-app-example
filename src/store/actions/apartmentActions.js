@@ -12,6 +12,6 @@ export const fetchApartment = (_id) => (dispatch) => {
       dispatch({
         type: FETCH_APARTMENT,
         payload: apartment.data,
-      })
+      }),
     );
 };

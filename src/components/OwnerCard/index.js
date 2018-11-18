@@ -18,6 +18,12 @@ const OwnerCard = ({ owner }) => {
     </Card>
   );
 };
+OwnerCard.defaultProps = {
+  owner: {
+    email: '',
+    profile: {},
+  },
+};
 OwnerCard.propTypes = {
   owner: PropTypes.shape({
     email: PropTypes.string,

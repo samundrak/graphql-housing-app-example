@@ -10,10 +10,7 @@ const PAGE404 = () => (
             Error ! <span>Page Not Found</span>
           </h2>
         </div>
-        <p>
-          For Some Reason The Page You Requested Could Not Be Found On Our
-          Server
-        </p>
+        <p>For Some Reason The Page You Requested Could Not Be Found On Our Server</p>
         <p>
           <a href="/">&laquo; Go Back</a> / <a href="/">Go Home &raquo;</a>
         </p>

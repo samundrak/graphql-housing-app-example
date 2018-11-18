@@ -51,35 +51,30 @@ class SearchBox extends React.Component {
     };
   }
 
-  changePopupState(state) {
-    this.setState({
-      isPopupVisible: state,
-    });
-  }
   onSearchTextChange(event) {
     const searchTerm = event.target.value;
     // if (!searchTerm) return;
-    const suggestions = this.props.suggestions.filter((suggestion) => {
-      return suggestion.title.toLowerCase().includes(searchTerm.toLowerCase());
-    });
+    const suggestions = this.props.suggestions.filter((suggestion) => suggestion.title.toLowerCase().includes(searchTerm.toLowerCase()));
     this.setState({
       filteredSuggestions: suggestions,
       isPopupVisible: !!suggestions.length,
     });
     this.props.onSearchTextChange(event);
   }
+  changePopupState(state) {
+    this.setState({
+      isPopupVisible: state,
+    });
+  }
   handlePopupCancel() {
     this.changePopupState(false);
   }
   handleSuggestionClick(suggestion) {
     return () => {
-      this.props.onSearchTextChange(
-        { target: { value: suggestion.title } },
-        () => {
-          this.changePopupState(false);
-          this.props.onSubmit();
-        }
-      );
+      this.props.onSearchTextChange({ target: { value: suggestion.title } }, () => {
+        this.changePopupState(false);
+        this.props.onSubmit();
+      });
     };
   }
   render() {
@@ -92,31 +87,17 @@ class SearchBox extends React.Component {
             onSubmit(e);
           }}
         >
-          <Input
-            type="text"
-            value={searchText}
-            onChange={this.onSearchTextChange}
-            placeholder="Enter location here..."
-          />
+          <Input type="text" value={searchText} onChange={this.onSearchTextChange} placeholder="Enter location here..." />
           {renderIf(this.state.isPopupVisible)(
-            <Popup
-              enableFooter={false}
-              onCancel={this.handlePopupCancel}
-              style={{ width: '600px', marginTop: '40px' }}
-            >
+            <Popup enableFooter={false} onCancel={this.handlePopupCancel} style={{ width: '600px', marginTop: '40px' }}>
               <StyledSuggestionUL>
-                {this.state.filteredSuggestions.map((item) => {
-                  return (
-                    <StyledSuggestionLI
-                      key={item._id}
-                      onClick={this.handleSuggestionClick(item)}
-                    >
-                      {item.title}
-                    </StyledSuggestionLI>
-                  );
-                })}
+                {this.state.filteredSuggestions.map((item) => (
+                  <StyledSuggestionLI key={item._id} onClick={this.handleSuggestionClick(item)}>
+                    {item.title}
+                  </StyledSuggestionLI>
+                ))}
               </StyledSuggestionUL>
-            </Popup>
+            </Popup>,
           )}
         </form>
       </div>
@@ -128,6 +109,7 @@ SearchBox.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   searchText: PropTypes.string.isRequired,
   onSearchTextChange: PropTypes.func.isRequired,
+  suggestions: PropTypes.array.isRequired,
 };
 
 export default SearchBox;

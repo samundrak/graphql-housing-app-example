@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import qs from 'qs';
-import { fetchLocationsList } from '../store/actions/locationsListActions';
+import PropTypes from 'prop-types';
 import autobind from 'auto-bind';
 import styled from 'styled-components';
+import qs from 'qs';
+import { fetchLocationsList } from '../store/actions/locationsListActions';
 import SearchBox from '../components/SearchBox';
 import RangeFilter from '../containers/filters/RangeFilter';
 import CheckFilter from '../containers/filters/CheckFilter';
@@ -39,14 +40,7 @@ class SearchView extends React.Component {
       },
     };
     this.defaultOptions = {
-      amenities: [
-        'television',
-        'elevator',
-        'fridge',
-        'heating',
-        'cooker',
-        'microwave',
-      ],
+      amenities: ['television', 'elevator', 'fridge', 'heating', 'cooker', 'microwave'],
       services: ['concierge', 'cleaning', 'fullFridge', 'laundry'],
     };
   }
@@ -55,7 +49,6 @@ class SearchView extends React.Component {
       this.props.fetchLocationsList();
     }
   }
-  submitSearchRequest() {}
   handleSearchSubmit(event) {
     if (event) event.preventDefault();
     this.submitSearchRequest();
@@ -65,7 +58,7 @@ class SearchView extends React.Component {
       {
         searchText: event.target.value,
       },
-      cb
+      cb,
     );
   }
   submitSearchRequest() {
@@ -75,13 +68,9 @@ class SearchView extends React.Component {
     };
     this.props.history.replace({
       pathname: '/search',
-      search: '?' + qs.stringify(query),
+      search: `?${qs.stringify(query)}`,
     });
-    alert(
-      `Will request to graphql query endpoint once ready ${JSON.stringify(
-        query
-      )}`
-    );
+    alert(`Will request to graphql query endpoint once ready ${JSON.stringify(query)}`); // eslint-disable-line
     console.log(query);
   }
   handleApplyFilter(filter) {
@@ -96,20 +85,12 @@ class SearchView extends React.Component {
         () => {
           cb();
           this.submitSearchRequest();
-        }
+        },
       );
-    };
-  }
-  handleCancelFilter(filter) {
-    return () => {
-      this.setState({
-        activeFilter: '',
-      });
     };
   }
 
   render() {
-    const { activeFilter, filter } = this.state;
     return (
       <div className="center-element">
         <SearchBox
@@ -123,20 +104,10 @@ class SearchView extends React.Component {
             <b>Filter:</b>
           </FilterList>
           <FilterList>
-            <RangeFilter
-              value={this.state.filter.size}
-              onApply={this.handleApplyFilter('size')}
-              label="Size"
-              sign="m²"
-            />
+            <RangeFilter value={this.state.filter.size} onApply={this.handleApplyFilter('size')} label="Size" sign="m²" />
           </FilterList>
           <FilterList>
-            <RangeFilter
-              value={this.state.filter.price}
-              onApply={this.handleApplyFilter('price')}
-              label="Price"
-              sign="€"
-            />
+            <RangeFilter value={this.state.filter.price} onApply={this.handleApplyFilter('price')} label="Price" sign="€" />
           </FilterList>
           <FilterList>
             <CheckFilter
@@ -164,18 +135,23 @@ class SearchView extends React.Component {
                 <RangeInput />
               </Popup>
             )}
-          </FilterList>*/}
+          </FilterList> */}
         </ul>
       </div>
     );
   }
 }
 
+SearchView.propTypes = {
+  locations: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  fetchLocationsList: PropTypes.func.isRequired,
+};
 const mapStateToProps = (state) => ({
   locations: state.locationList.locations,
 });
 
 export default connect(
   mapStateToProps,
-  { fetchLocationsList }
+  { fetchLocationsList },
 )(SearchView);

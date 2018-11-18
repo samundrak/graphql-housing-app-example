@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import renderIf from 'render-if';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from './Button';
 import Overlay from './Overlay';
@@ -18,29 +19,36 @@ const Footer = styled.div`
   padding: 10px;
 `;
 const Popup = ({
-  children,
-  onCancel = () => null,
-  onApply = () => null,
-  style = {},
-  enableFooter = true,
-}) => {
-  return (
-    <div>
-      <Overlay onClick={onCancel} />
-      <Container style={style}>
-        <Fragment>
-          {children}
-          {renderIf(enableFooter)(
-            <Footer>
-              <Button type="simple" onClick={onCancel}>
-                Cancel
-              </Button>
-              <Button onClick={onApply}>Apply</Button>
-            </Footer>
-          )}
-        </Fragment>
-      </Container>
-    </div>
-  );
+  children, onCancel = () => null, onApply = () => null, style = {}, enableFooter = true,
+}) => (
+  <div>
+    <Overlay onClick={onCancel} />
+    <Container style={style}>
+      <Fragment>
+        {children}
+        {renderIf(enableFooter)(
+          <Footer>
+            <Button type="simple" onClick={onCancel}>
+              Cancel
+            </Button>
+            <Button onClick={onApply}>Apply</Button>
+          </Footer>,
+        )}
+      </Fragment>
+    </Container>
+  </div>
+);
+Popup.defaultProps = {
+  onCancel: () => null,
+  onApply: () => null,
+  style: {},
+  enableFooter: false,
+};
+Popup.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  onCancel: PropTypes.func,
+  onApply: PropTypes.func,
+  style: PropTypes.object,
+  enableFooter: PropTypes.bool,
 };
 export default Popup;

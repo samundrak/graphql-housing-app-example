@@ -12,7 +12,7 @@ export const fetchLocationsList = () => (dispatch) => {
       dispatch({
         type: FETCH_LOCATIONS,
         payload: locations.data,
-      })
+      }),
     );
 };
 
@@ -28,6 +28,6 @@ export const fetchApartmentByLocation = (locationId) => (dispatch) => {
       dispatch({
         type: FETCH_APARTMENTS_LIST,
         payload: locations.data,
-      })
+      }),
     );
 };

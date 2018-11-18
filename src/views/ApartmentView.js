@@ -1,7 +1,7 @@
 import React from 'react';
-import { fetchApartment } from '../store/actions/apartmentActions';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ApartmentAmentityView from '../components/ApartmentAmentityView';
+import { fetchApartment } from '../store/actions/apartmentActions';
 import { loadImageFromCDN } from '../helpers';
 import OwnerCard from '../components/OwnerCard';
 
@@ -19,7 +19,7 @@ export class ApartmentView extends React.Component {
     if (!Object.keys(apartment).length) {
       return <div className="center-element">Loading...</div>;
     }
-    let image = loadImageFromCDN(`apartments/${apartment.images[0]}`);
+    const image = loadImageFromCDN(`apartments/${apartment.images[0]}`);
     return (
       <div className="container-fl clearfix">
         <div className="col-12">
@@ -48,9 +48,7 @@ export class ApartmentView extends React.Component {
                   <div className="listing-details-container">
                     <div className="listing-details">
                       <div className="_3-hUUH6d0vGND3vUzaybD0 Lsdn2hC-tehVod76x4HzK">
-                        <span className="text-truncate text-first-capitalize _1NES5HH5UNUjUVK5_-d-AG">
-                          {apartment.title}
-                        </span>
+                        <span className="text-truncate text-first-capitalize _1NES5HH5UNUjUVK5_-d-AG">{apartment.title}</span>
                       </div>
                       <div className="_17om8IEGFeu2W2TBOJ6xQs Lsdn2hC-tehVod76x4HzK text-truncate">
                         <span>{apartment.size} m²</span>
@@ -68,11 +66,16 @@ export class ApartmentView extends React.Component {
   }
 }
 
+ApartmentView.propTypes = {
+  apartment: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  fetchApartment: PropTypes.func.isRequired,
+};
 const mapStateToProps = (state) => ({
   apartment: state.apartmentItem.apartment,
 });
 
 export default connect(
   mapStateToProps,
-  { fetchApartment }
+  { fetchApartment },
 )(ApartmentView);

@@ -11,6 +11,6 @@ export const fetchApartmentsList = () => (dispatch) => {
       dispatch({
         type: FETCH_APARTMENTS_LIST,
         payload: apartments.data,
-      })
+      }),
     );
 };
