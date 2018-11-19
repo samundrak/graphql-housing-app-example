@@ -20,7 +20,11 @@
 1. Add new page "search page", provide abilities to search by location and filter by [size, price, amenities, details, services]
 
 #### Please copy file `.env.example` to `.env` before running app
-
+# Todo
+   - [ ] Fix webpack bug
+   - [ ] Write tests of components
+   - [ ] Create query for search
+   - [ ] Remove redux and use `apollo-link-state`
 # Improvements and Refactor
 
 - Added library `react-loadable` for lazy loading of routes which were previously bundled in single file
