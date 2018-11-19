@@ -22,7 +22,7 @@
 #### Please copy file `.env.example` to `.env` before running app
 # Todo
    - [ ] Fix webpack bug
-   - [ ] Write tests of components
+   - [ ] Write tests of more components
    - [ ] Create query for search
    - [ ] Remove redux and use `apollo-link-state`
 # Improvements and Refactor
