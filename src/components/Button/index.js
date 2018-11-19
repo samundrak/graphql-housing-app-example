@@ -10,9 +10,9 @@ const Primary = styled.button`
   line-height: 24px;
   text-align: center;
   width: initial;
-  background-color: ${(props) =>
+  background-color: ${props =>
     props.type === 'primary' ? 'rgb(102, 153, 204)' : 'white'};
-  color: ${(props) => (props.type === 'primary' ? 'white' : 'black')};
+  color: ${props => (props.type === 'primary' ? 'white' : 'black')};
   box-sizing: border-box;
   box-shadow: transparent 0px 0px 0px;
   padding: 8px;
@@ -31,5 +31,5 @@ const Button = ({ children, onClick, type = 'primary' }) => {
     </Primary>
   );
 };
-
+Button.displayName = 'Button';
 export default Button;
